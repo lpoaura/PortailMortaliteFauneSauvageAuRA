@@ -1,0 +1,208 @@
+<!doctype html>
+<html class="no-js" lang="fr" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortalité routière de la faune sauvage en Rhône-Alpes</title>
+    <link rel="stylesheet" href="css/foundation.min.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/foundation-icons.css">
+    <link rel="stylesheet" href="css/leaflet.css">
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" />
+    <link href="css/leaflet.fullscreen.css" rel='stylesheet' />
+    <link href="css/MarkerCluster.css" rel='stylesheet' />
+    <link href="css/MarkerCluster.Default.css" rel='stylesheet' />
+    <link rel="icon" type="image/x-icon" href="http://auvergne-rhone-alpes.lpo.fr/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="http://auvergne-rhone-alpes.lpo.fr/favicon.ico">
+    <script src="js/libs/jquery.min.js" defer></script>
+    <script src="js/libs/foundation.min.js" defer></script>
+    <script src="js/libs/what-input.js" defer></script>
+    <script src="js/libs/Chart.min.js" defer></script>
+    <script src="js/libs/leaflet.js" defer></script>
+    <script src="js/libs/Leaflet.fullscreen.min.js" defer></script>
+    <script src="js/libs/leaflet-heat.js" defer></script>
+    <script src="js/libs/leaflet.markercluster.js" defer></script>
+    <script src="data/mortalite.js" defer></script>
+    <script src="data/depts.js" defer></script>
+    <script src="js/app.js" type="module" defer></script>
+</head>
+<!-- Barre de navigation -->
+
+<body>
+    <div class="top-bar" id="home">
+        <div class="top-bar-title">
+            <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
+                <button class="menu-icon dark" type="button" data-toggle></button>
+            </span>
+            <strong>Espace de partage</strong>
+        </div>
+        <div id="responsive-menu">
+            <div class="top-bar-left">
+                <ul class="dropdown menu" data-dropdown-menu>
+                    <li><a href="https://aura-partage.lpo.fr" title="Accueil"><i class="fi-home"></i></a></li>
+                    <li><a href="#about" title="A propos de"><i class="fi-info"></i></a></li>
+                </ul>
+            </div>
+            <div class="top-bar-right">
+                <a href="http://auvergne-rhone-alpes.lpo.fr" target="_blank"><img src="images/logo_lpo_aura4darkbg_120px.png"
+                        width="120px"></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fin de la barre de navigation -->
+    <header>
+        <div class="row" style="max-width:1024px;">
+            <div class="large-12 columns">
+                <a href="http://auvergne-rhone-alpes.lpo.fr" hover="_blank"><img src="../../img/logo_lpo_aura_darkbg.svg"></a><br />
+                <h1>Mortalité routière de la faune sauvage sur les départements rhonalpins de la région
+                    Auvergne-Rhône-Alpes</h1>
+            </div>
+            <div class="large-3 medium-6 small-12 columns">
+                <p align="center"><a href="#intro" class="button" title="Présentation"><i class="fi-info"></i>
+                        informations</a><br />
+            </div>
+            <div class="large-3 medium-6 small-12 columns">
+                <p align="center"><a href="#carte" class="button" title="Carte"><i class="fi-map"></i> Carte</a><br />
+            </div>
+            <div class="large-3 medium-6 small-12 columns">
+                <p align="center"><a href="#graph" class="button" title="Graphiques"><i class="fi-graph-trend"></i>
+                        Graphiques</a><br />
+            </div>
+            <div class="large-3 medium-6 small-12 columns">
+                <p align="center"><a href="https://fauneauvergnerhonealpes.org/observations/" target="_blank" class="button round"
+                        title="Graphiques"><i class="fi-torsos-all-female"></i> Participez !</a><br />
+            </div>
+        </div>
+    </header>
+    <div class="row fullWidth" width="100%">
+        <div class="large-12 medium-12 small-12 columns" id="intro">
+            <h1><i class="fi-info"></i> A propos de ce portail</h1>
+            <div class="large-9 medium-7 small-12 columns">
+                <h3>Présentation</h3>
+                <p>Ce portail a été réalisé dans le cadre d'un programme thématique de mise en oeuvre du SRCE
+                    Rhône-Alpes ayant pour objectif l'Amélioration de la connaissance et la réduction de l’impact des
+                    infrastructures linéaires de transport sur les
+                    continuités écologiques de Rhône-Alpes. Il est mis en oeuvre sous l'égide de la DREAL et la Région
+                    Auvergne-Rhône-Alpes, avec le CEREMA comme chef de file et les partenaires suivants : FRAPNA, LPO
+                    Auvergne-Rhône-Alpes et FRC Auvergne-Rhône-Alpes.</p>
+                <p>La LPO contribue sur différentes actions et notamment l'identification des points de conflits faune
+                    / infrastructures de transports en transmettant les données de mortalité dont elle a connaissance
+                    grâce à ses observateurs.</p>
+                <p>Il a été réalisé d'après les <b>62861 données</b> collectées par <b>2005 observateurs</b>
+                    au travers des portails visionature du réseau des LPO de la coordination Auvergne-Rhône-Alpes
+                    accessibles ici <a href="https://fauneauvergnerhonealpes.org/observations/">fauneauvergnerhonealpes.org</a>
+                    et en date du 30/09/2018.</p>
+                <p><i class="fi-alert"></i> Le pic d'acquisition de données en 2012 fait suite à la mise à place d'un
+                    module "mortalité" ouvert à tous les observateurs sur les portails nationaux VisioNature.</p>
+            </div>
+            <div class="large-3 medium-5 small-12 columns">
+                <h3><i class="fi-torsos-all-female"></i> Partenaire financier</h3>
+                <p align="center">
+                    <a href="https://www.auvergnerhonealpes.fr/" title="Site internet de la région Auvergne-Rhône-Alpes"><img
+                            src="https://aura-partage.lpo.fr/img/logo_region_aura.svg" atl="Région Auvergne-Rhône-Alpes"
+                            max-width="100%" /></a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="row fullWidth" width="100%">
+        <div class="large-6 medium-12 small-12 columns" width="1280" id="carte" style="margin-bottom:10px;">
+            <h2><i class="fi-map"></i> Carte</h2>
+            <p><i class="fi-info"></i> Zoomez pour afficher les données précises et la <a href="https://fr.wikipedia.org/wiki/Heat_map"
+                    target="_blank">carte de chaleur</a> qui modélise schématiquement le nombre de données. D'après les
+                données collectées
+                dans les portails visionature au 30/09/2018.</p>
+            <div id="progress">
+                <div id="progress-bar"></div>
+            </div>
+            <div id="map" style="height: 580px"></div>
+        </div>
+
+            
+        </script>
+        <div class="large-6 medium-12 small-12 columns" id="graph">
+            <h2><i class="fi-graph-trend"></i> Graphiques</h2>
+            <p><i class="fi-info"></i> Faites défiler les graphiques. D'après les données collectées dans les portails
+                visionature au 30/09/2018.</p>
+            <div class="orbit" role="region" aria-label="Partenaires" data-orbit>
+                <ul class="orbit-container">
+                    <button class="orbit-previous"><span class="show-for-sr">Précédent</span>&#9664;&#xFE0E;</button>
+                    <button class="orbit-next"><span class="show-for-sr">Suivant</span>&#9654;&#xFE0E;</button>
+                    <li class="is-active orbit-slide">
+                        <div class="fixedchartheight">
+                            <canvas class="orbit-image" id="NbDataMortaAnGraph" width="400" height="400"></canvas>
+                        </div>
+                        <p><small><i class="fi-asterisk"></i> Données partielles en 2018 (jusqu'au 30/09/2018)</small></p>
+                    </li>
+                    <li class="orbit-slide">
+                        <div class="fixedchartheight">
+                            <canvas class="orbit-image" id="NbObserverEspMortGraph" width="400" height="400"></canvas>
+                            <p><small><i class="fi-asterisk"></i> Données partielles en 2018 (jusqu'au 30/09/2018)</small></p>
+                        </div>
+                    </li>
+                    <li class="orbit-slide">
+                        <div class="fixedchartheight">
+                            <canvas class="orbit-image" id="NbDataMortaMoisGraph" width="400" height="400"></canvas>
+                        </div>
+                    </li>
+                    <li class="orbit-slide">
+                        <div class="fixedchartheight">
+                            <canvas class="orbit-image" id="NbDataMortaDecadeGrpGraph" width="400" height="400"></canvas>
+                        </div>
+                    </li>
+                    <li class="orbit-slide">
+                        <div class="fixedchartheight">
+                            <canvas class="orbit-image" id="NbDataMortaEspGraph" width="400" height="400"></canvas>
+                        </div>
+                    </li>
+                    <li class="orbit-slide">
+                        <div class="fixedchartheight">
+                            <canvas class="orbit-image" id="NbDataMortaEspPatGraph" width="400" height="400"></canvas>
+                        </div>
+                        <p><small><i class="fi-asterisk"></i> Les espèces patrimoniales sont les espèces d'intérêt
+                                communautaire au titre de Natura 2000 et/ou à statut de conservation défavorable<small></p>
+                    </li>
+                </ul>
+                <nav class="orbit-bullets">
+                    <button class="is-active" data-slide="0"><span class="show-for-sr">Nombre annuel de données de
+                            mortalité</span><span class="show-for-sr">Current Slide</span></button>
+                    <button data-slide="1"><span class="show-for-sr">Nombre annuel d'observateurs</span></button>
+                    <button data-slide="2"><span class="show-for-sr">Nombre de données de mortalité par mois de l'année</span></button>
+                    <button data-slide="3"><span class="show-for-sr">Nombre de données de mortalité par décades
+                            (périodes de 10j) et par groupes d'espèces</span></button>
+                    <button data-slide="4"><span class="show-for-sr">Les 10 espèces les plus observées (données de
+                            mortalité uniquement)</span></button>
+                    <button data-slide="5"><span class="show-for-sr">Les 10 espèces patrimoniales* les plus observées
+                            (données de mortalité uniquement)</span></button>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <footer id="about" class="footer">
+        <div class="row full-width">
+            <div class="small-12 medium-4 large-4 columns">
+                <i class="fi-info"></i>
+                <p>LPO Coordination Auvergne-Rhône-Alpes<br /> 5, rue Bernard Gangloff<br /> 01160 PONT D'AIN<br /> Tél
+                    : 09.70.90.20.61<br /> (Du lundi au vendredi de 9h à 12h)<br /> Courriel : rhone-alpes[at]lpo.fr</p>
+            </div>
+            <div class="small-12 medium-4 large-4 columns">
+                <i class="fi-mobile"></i>
+                <p>Page responsive et entièrement motorisée<br />par des bibliothèques libres<br /><a class="button small success"
+                        href="http://foundation.zurb.com/">Zurb Foundation</a> <a class="button small" href="http://leafletjs.com/">leaflet.js</a>
+                    <a class="button small alert" href="http://www.chartjs.org/">chart.js</a></p>
+            </div>
+            <div class="small-12 medium-4 large-4 columns">
+                <i class="fi-at-sign"></i>
+                <p>Réalisation : LPO Ardèche<br />Hébergement : LPO France</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
